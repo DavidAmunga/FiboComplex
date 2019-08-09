@@ -22,3 +22,18 @@ after_success:
   - docker push damunga/multi-nginx
   - docker push damunga/multi-server
   - docker push damunga/multi-worker
+
+deploy:
+  - provider: elasticbeanstalk
+  - region: eu-west-1
+  - app: FiboComplex
+  - env: FiboComplex-env
+  - bucket_name: elasticbeanstalk-eu-west-1-648878003113
+  - bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: 
+    secret: $AWS_ACCESS_KEY
+  secret_access_key:
+    secret: $AWS_SECRET_KEY   
+
