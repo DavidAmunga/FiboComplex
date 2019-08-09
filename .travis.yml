@@ -8,11 +8,17 @@ before_install:
   - docker build -t damunga/fibo-complex -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true damunga/fibo-complex npm test  
+  - docker run -e CI=true damunga/fibo-complex npm test
 
 after_success:
-  - docker build -t damunga/multi-client ./client 
-  - docker build -t damunga/multi-nginx ./nginx 
+  - docker build -t damunga/multi-client ./client
+  - docker build -t damunga/multi-nginx ./nginx
   - docker build -t damunga/multi-server ./server
   - docker build -t damunga/multi-worker ./worker
-   
+  # Login to Docker CLI
+  - echo "$DOCKER_PASSWORD | docker login -u "$DOCKER_ID" --password-stdin
+  # Push to Docker Hub
+  - docker push damunga/multi-client
+  - docker push damunga/multi-nginx
+  - docker push damunga/multi-server
+  - docker push damunga/multi-worker
