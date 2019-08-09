@@ -26,7 +26,7 @@ after_success:
 deploy:
   provider: elasticbeanstalk
   region: eu-west-1
-  app: FiboComplex
+  app: Fibo Complex
   env: FiboComplex-env
   bucket_name: elasticbeanstalk-eu-west-1-648878003113
   bucket_path: docker-multi
